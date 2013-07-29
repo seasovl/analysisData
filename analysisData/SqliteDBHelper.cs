@@ -55,9 +55,10 @@ namespace analysisData
            int i = cmd.ExecuteNonQuery();
            return i;
         }
-        public List<AnalyBean> queryAnaly(SQLiteCommand cmd)
+        public List<AnalyBean> queryAnaly(SQLiteCommand cmd,string begd,string endd,string begt,string endt)
         {
-            string sql = "select datea,timea,higha,lowa from analysis limit 2000";
+            string sql = "select datea,timea,higha,lowa from analysis where datea >=" + begd + " and datea <" + endd + " and timea >=" + begt + " and timea <" + endt + " group by datea";
+            //select datea,timea,count(higha),count(lowa) from
             cmd.CommandText = sql;
             SQLiteDataReader reader = cmd.ExecuteReader();
             List<AnalyBean> lists = new List<AnalyBean>();

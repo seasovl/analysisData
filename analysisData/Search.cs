@@ -68,12 +68,12 @@ namespace analysisData
 
 
 
-           SQLiteConnection conn = sqlitedb.getSqlLiteDB("1m");
-            //执行导入
+            SQLiteConnection conn = sqlitedb.getSqlLiteDB(dbName);
             conn.Open();
             SQLiteCommand cmd = new SQLiteCommand();
             cmd.Connection = conn;
-           List<AnalyBean> lists= sqlitedb.queryAnaly(cmd);
+           List<AnalyBean> lists= sqlitedb.queryAnaly(cmd,begd,endd,begt+"0000",endt+"0000");
+                this.listView1.Items.Clear();
             foreach(AnalyBean ab in lists){
                 ListViewItem lvi = new ListViewItem(ab.Datea.ToString());//创建列表项
                 DateTime time = DateTime.ParseExact(datafm[ab.Timea.ToString().Length] + ab.Timea.ToString(), "HHmmss", null);
