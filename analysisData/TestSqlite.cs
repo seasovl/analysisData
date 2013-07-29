@@ -73,7 +73,7 @@ namespace analysisData
         }
 
          [STAThread()]
-         static void Main(string[] args)
+         static void Main2(string[] args)
          {
              DbProviderFactory fact = DbProviderFactories.GetFactory("System.Data.SQLite");
              using (DbConnection cnn = fact.CreateConnection())

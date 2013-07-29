@@ -12,14 +12,11 @@ namespace analysisData
         /// 应用程序的主入口点。
         /// </summary>
         [STAThread]
-        static void Main1()
+        static void Main()
         {
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Form1());
-
-
-            Console.WriteLine("test{0},{1}",1,"cc");
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Search());
             
         }
     }

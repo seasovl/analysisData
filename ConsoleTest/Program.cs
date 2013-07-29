@@ -16,7 +16,7 @@ namespace test
     class Program
     {
         [STAThread()]
-        static void Main1(string[] args)
+        static void Main(string[] args)
         {
 
             string datasource = "test.db";
@@ -79,7 +79,7 @@ namespace test
         }
 
        [STAThread()]
-        static void Main(string[] args){
+        static void Main1(string[] args){
             DbProviderFactory fact = DbProviderFactories.GetFactory("System.Data.SQLite");
             using (DbConnection cnn = fact.CreateConnection())
             {
