@@ -55,9 +55,25 @@ namespace analysisData
            int i = cmd.ExecuteNonQuery();
            return i;
         }
-        public List<AnalyBean> queryAnaly(SQLiteCommand cmd,string begd,string endd,string begt,string endt)
+        public List<AnalyBean> queryAnaly(SQLiteCommand cmd,string begd,string endd,string begt,string endt,int countType)
         {
-            string sql = "select datea,timea,higha,lowa from analysis where datea >=" + begd + " and datea <" + endd + " and timea >=" + begt + " and timea <" + endt + " group by datea";
+            string sql = "";
+            switch (countType)
+            {// 0 分 1 时 2 天 3 周
+                case 1:
+                    sql = "select datea,timea,max(higha),max(lowa),count(higha)-count(lowa),timea/10000 ti from analysis where datea >=" + begd + " and datea <" + endd + " and timea >=" + begt + " and timea <" + endt + " group by ti";
+                    break;
+                case 2:
+                    sql = "select datea,timea,max(higha),max(lowa),count(higha)-count(lowa) from analysis where datea >=" + begd + " and datea <" + endd + " and timea >=" + begt + " and timea <" + endt + " group by datea";
+                    break;
+                case 3:
+                    sql = "select datea,timea,higha,lowa,higha-lowa from analysis where datea >=" + begd + " and datea <" + endd + " and timea >=" + begt + " and timea <" + endt ;
+                    break;
+                default:
+                    sql = "select datea,timea,higha,lowa,higha-lowa from analysis where datea >=" + begd + " and datea <" + endd + " and timea >=" + begt + " and timea <" + endt ;
+                    break;
+            }
+
             //select datea,timea,count(higha),count(lowa) from
             cmd.CommandText = sql;
             SQLiteDataReader reader = cmd.ExecuteReader();

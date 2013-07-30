@@ -55,6 +55,10 @@ namespace analysisData
             //条件 
             //1 获得数据库
             string dbName = this.comboBox1.Text;
+            if (dbName.Trim().Equals("")) {
+                MessageBox.Show("请导入数据!!!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             dbName = dbName.Substring(0, dbName.IndexOf(".db"));
             //2 开始,结束日期
             DateTime beginDate = this.dateTimePicker1.Value;
@@ -65,14 +69,15 @@ namespace analysisData
             string begt = comboBox3.Text;
             string endt = comboBox4.Text;
             //4 统计维度
-
+            // 0 分 1 时 2 天 3 周
+           int selIndex = this.comboBox2.SelectedIndex;
 
 
             SQLiteConnection conn = sqlitedb.getSqlLiteDB(dbName);
             conn.Open();
             SQLiteCommand cmd = new SQLiteCommand();
             cmd.Connection = conn;
-           List<AnalyBean> lists= sqlitedb.queryAnaly(cmd,begd,endd,begt+"0000",endt+"0000");
+            List<AnalyBean> lists = sqlitedb.queryAnaly(cmd, begd, endd, begt + "0000", endt + "0000", selIndex);
                 this.listView1.Items.Clear();
             foreach(AnalyBean ab in lists){
                 ListViewItem lvi = new ListViewItem(ab.Datea.ToString());//创建列表项
